@@ -3,54 +3,23 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 4f;
-    [SerializeField] private float turnSpeed = 90f;
-    [SerializeField] private int startingHp = 100;
-    [SerializeField] private UnityEngine.UI.Slider hpBarSlider = null;
-    [SerializeField] private ParticleSystem deathParticlePrefab = null;
-    [SerializeField] private int currentHp;
-
-    private float CurrentHpPct
-    {
-        get { return (float)currentHp / (float)startingHp; }
-    }
-
-    public event Action<float> OnHPPctChanged = delegate { };
-    public event Action OnNPCDied = delegate { };
-
-    private void Start()
-    {
-        currentHp = startingHp;
-    }
-
+    // [SerializeField] private float moveSpeed = 4f;
+    // [SerializeField] private float turnSpeed = 90f;
+    
     internal void TakeDamage(int amount)
     {
-        if (amount <= 0)
-            throw new ArgumentOutOfRangeException("Invalid Damage amount specified: " + amount);
-
-        currentHp -= amount;
-
-        OnHPPctChanged(CurrentHpPct);
-
-        if (currentHp <= 0)
-            Die();
+        GetComponent<Health>().TakeDamage(amount);
     }
+    
+    // private void Update()
+    // {
+    //     transform.position += transform.forward * moveSpeed * Time.deltaTime;
+    //     transform.Rotate(0f, turnSpeed * Time.deltaTime, 0f);
+    //     hpBarSlider.transform.LookAt(Camera.main.transform);
 
-    private void Die()
-    {
-        OnNPCDied();
-        GameObject.Destroy(this.gameObject);
-    }
-
-    private void Update()
-    {
-        transform.position += transform.forward * moveSpeed * Time.deltaTime;
-        transform.Rotate(0f, turnSpeed * Time.deltaTime, 0f);
-        hpBarSlider.transform.LookAt(Camera.main.transform);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(startingHp / 10);
-        }
-    }
+    //     if (Input.GetKeyDown(KeyCode.Space))
+    //     {
+    //         TakeDamage(startingHp / 10);
+    //     }
+    // }
 }

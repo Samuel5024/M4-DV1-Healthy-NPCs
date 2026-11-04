@@ -6,7 +6,7 @@ public class NPCParticles : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<NPC>().OnNPCDied += HandleNPCDied;
+        GetComponent<Health>().OnDied += HandleNPCDied;
     }
 
     private void HandleNPCDied()
