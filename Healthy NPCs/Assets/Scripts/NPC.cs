@@ -12,13 +12,11 @@ public class NPC : MonoBehaviour
 
     private float CurrentHpPct
     {
-        get
-        {
-            return (float)currentHp / (float)startingHp;
-        }
+        get { return (float)currentHp / (float)startingHp; }
     }
 
     public event Action<float> OnHPPctChanged = delegate { };
+    public event Action OnNPCDied = delegate { };
 
     private void Start()
     {
@@ -40,14 +38,8 @@ public class NPC : MonoBehaviour
 
     private void Die()
     {
-        PlayDeathParticle();
+        OnNPCDied();
         GameObject.Destroy(this.gameObject);
-    }
-
-    private void PlayDeathParticle()
-    {
-        var deathparticle = Instantiate(deathParticlePrefab, transform.position, deathParticlePrefab.transform.rotation);
-        Destroy(deathparticle, 4f);
     }
 
     private void Update()
@@ -61,5 +53,4 @@ public class NPC : MonoBehaviour
             TakeDamage(startingHp / 10);
         }
     }
-
 }
