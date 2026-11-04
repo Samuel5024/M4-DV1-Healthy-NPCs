@@ -8,7 +8,7 @@ public class HPBar : MonoBehaviour
     private void Start()
     {
         _slider = GetComponentInChildren<Slider>();
-        GetComponentInParent<Health>().OnHPPctChanged += HandleHPPctChanged;
+        GetComponentInParent<IHealth>().OnHPPctChanged += HandleHPPctChanged;
     }
 
     private void HandleHPPctChanged(float pct)

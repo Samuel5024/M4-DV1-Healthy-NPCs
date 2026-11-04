@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    // [SerializeField] private float moveSpeed = 4f;
-    // [SerializeField] private float turnSpeed = 90f;
+    [SerializeField] private float moveSpeed = 4f;
+    [SerializeField] private float turnSpeed = 90f;
     
     internal void TakeDamage(int amount)
     {
-        GetComponent<Health>().TakeDamage(amount);
+        GetComponent<IHealth>().TakeDamage(amount);
     }
     
     // private void Update()
