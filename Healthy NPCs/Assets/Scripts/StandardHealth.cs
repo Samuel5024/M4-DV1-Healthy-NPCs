@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class StandardHealth : MonoBehaviour, IHealth
 {
     [SerializeField] private int startingHealth = 100;
     
