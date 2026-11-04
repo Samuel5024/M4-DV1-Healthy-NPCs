@@ -10,6 +10,16 @@ public class NPC : MonoBehaviour
     [SerializeField] private ParticleSystem deathParticlePrefab = null;
     [SerializeField] private int currentHp;
 
+    private float CurrentHpPct
+    {
+        get
+        {
+            return (float)currentHp / (float)startingHp;
+        }
+    }
+
+    public event Action<float> OnHPPctChanged = delegate { };
+
     private void Start()
     {
         currentHp = startingHp;
@@ -22,17 +32,10 @@ public class NPC : MonoBehaviour
 
         currentHp -= amount;
 
-        UpdateUI();
+        OnHPPctChanged(CurrentHpPct);
 
         if (currentHp <= 0)
             Die();
-    }
-
-    private void UpdateUI()
-    {
-        var currentHpPct = (float)currentHp / (float)startingHp;
-
-        hpBarSlider.value = currentHpPct;
     }
 
     private void Die()
